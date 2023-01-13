@@ -14,14 +14,38 @@ import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import Alert from '@mui/material/Alert';
+import axios from 'axios'
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const [usuario, setUsuario] = useState(null)
-    const [password, setPassword] = useState(null)
+    const [alert, setAlert] = useState(false);
+    const [alertUsuario, setAlertUsuario] = useState(false);
+    const [usuario, setUsuario] = useState('')
+    const [password, setPassword] = useState('')
 
     const onChangeUsuario = (event) => {setUsuario(event.target.value)}
     const onChangePassword = (event) => {setPassword(event.target.value)}
+
+    const login = () => {
+        if(usuario === '' || password === ''){
+            setAlert(true)
+        } else {
+            setAlert(false)
+            setAlertUsuario(false)
+            axios.post('http://localhost:3001/inicio-sesion', {
+                user: usuario,
+                password: password
+            }).then((response) => {
+                // setUsuario('')
+                // setPassword('')
+            }).catch((err)=>{
+                setAlertUsuario(true)
+                console.log('entro al error')
+            })
+        }
+    }
+
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -45,13 +69,21 @@ const Login = () => {
                     <Typography variant="h4" gutterBottom>
                         Inicio de sesion
                     </Typography>
-                    <Grid item pt={2}>
+                    {
+                        alert &&
+                        <Alert severity="error">Usuario o contrasea no pueden estar vacios</Alert>
+                    }
+                    {
+                        alertUsuario &&
+                        <Alert severity="warning">Usuario no existe</Alert>
+                    }
+                    <Grid item pt={4}>
                         <TextField 
-                        value={usuario}
-                        onChange={onChangeUsuario}
-                        id="outlined-basic" 
-                        label="Usuario" 
-                        variant="outlined" />
+                            value={usuario}
+                            onChange={onChangeUsuario}
+                            id="outlined-basic" 
+                            label="Usuario" 
+                            variant="outlined" />
                     </Grid>
                     <Grid item pt={2}>
                     <FormControl sx={{ m: 1, width: '29ch' }} variant="outlined">
@@ -80,7 +112,7 @@ const Login = () => {
                     <Grid item pt={2} pb={4}>
                         <Stack pl={8} spacing={2} direction="row">
                             <Button variant="outlined">Crear usuario</Button>
-                            <Button variant="contained">Iniciar sesion</Button>
+                            <Button variant="contained" onClick={() =>{login()}}>Iniciar sesion</Button>
                         </Stack>
                     </Grid>
                 </Item>
