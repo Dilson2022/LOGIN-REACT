@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid'
@@ -16,6 +16,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import Alert from '@mui/material/Alert';
 import axios from 'axios'
+import { Link  } from 'react-router-dom';
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -37,6 +38,8 @@ const Login = () => {
                 user: usuario,
                 password: password
             }).then((response) => {
+                
+                console.log('Esta es la respuesta del back',response.data)
                 // setUsuario('')
                 // setPassword('')
             }).catch((err)=>{
@@ -63,8 +66,8 @@ const Login = () => {
 
     return (
         <Grid container>
-            <Grid item xs={4}/>
-            <Grid item xs={4} pt={8} >
+        <Grid item xs={4}/>
+        <Grid item xs={4} pt={8} >
                 <Item>
                     <Typography variant="h4" gutterBottom>
                         Inicio de sesion
@@ -112,7 +115,9 @@ const Login = () => {
                     <Grid item pt={2} pb={4}>
                         <Stack pl={8} spacing={2} direction="row">
                             <Button variant="outlined">Crear usuario</Button>
-                            <Button variant="contained" onClick={() =>{login()}}>Iniciar sesion</Button>
+                            <Link to='/home'>
+                                <Button variant="contained" onClick={() =>{login()}}>Iniciar sesion</Button>
+                            </Link>
                         </Stack>
                     </Grid>
                 </Item>
