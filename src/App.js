@@ -13,7 +13,7 @@ const  App = () => {
       <BrowserRouter>
         <Routes>
             <Route element={<ProtectedRoute isAllowed={false}/>}>
-              <Route path='/home' element={ <Home/>}> </Route>
+              <Route path='/home' element={ <Home />}> </Route>
             </Route>
             <Route path='/landing' element={<Landing/>}> </Route>
             <Route path='/users' element={<Users/>}> </Route>
