@@ -27,6 +27,14 @@ export default function BasicMenu() {
                     Landing
                 </Button>
             </Link>
+            <Link to='/portafolio'>
+                <Button
+                    id="basic-button"
+                    onClick={handleClick}
+                >
+                    Portafolio
+                </Button>
+            </Link>
             <Button
                 id="basic-button"
                 aria-controls={open ? 'basic-menu' : undefined}
@@ -56,7 +64,9 @@ export default function BasicMenu() {
             >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                <Link to='/inicioSesion'>
+                    <MenuItem onClick={handleClose}>Logout</MenuItem>
+                </Link>
             </Menu>
         </Grid>
         </Grid>

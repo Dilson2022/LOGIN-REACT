@@ -1,3 +1,4 @@
+import './login.css'
 import * as React from 'react'
 import { useState } from 'react'
 import { styled } from '@mui/material/styles';
@@ -18,12 +19,13 @@ import Alert from '@mui/material/Alert';
 import axios from 'axios'
 import { Link  } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({childToParentData}) => {
     const [showPassword, setShowPassword] = useState(false);
     const [alert, setAlert] = useState(false);
     const [alertUsuario, setAlertUsuario] = useState(false);
     const [usuario, setUsuario] = useState('')
     const [password, setPassword] = useState('')
+    const [data, setData] = useState('')
 
     const onChangeUsuario = (event) => {setUsuario(event.target.value)}
     const onChangePassword = (event) => {setPassword(event.target.value)}
@@ -40,10 +42,14 @@ const Login = () => {
             }).then((response) => {
                 
                 console.log('Esta es la respuesta del back',response.data)
+                setData(response.data)
+                childToParentData(data)
                 // setUsuario('')
                 // setPassword('')
             }).catch((err)=>{
+                setData('')
                 setAlertUsuario(true)
+                childToParentData(data)
                 console.log('entro al error')
             })
         }
@@ -56,19 +62,11 @@ const Login = () => {
         event.preventDefault();
     };
 
-    const Item = styled(Paper)(({ theme }) => ({
-        backgroundColor: '#D3D1D1',
-        ...theme.typography.body2,
-        padding: theme.spacing(1),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-    }));
-
     return (
         <Grid container>
         <Grid item xs={4}/>
         <Grid item xs={4} pt={8} >
-                <Item>
+                <div className='Item'>
                     <Typography variant="h4" gutterBottom>
                         Inicio de sesion
                     </Typography>
@@ -81,7 +79,7 @@ const Login = () => {
                         <Alert severity="warning">Usuario no existe</Alert>
                     }
                     <Grid item pt={4}>
-                        <TextField 
+                    <TextField 
                             value={usuario}
                             onChange={onChangeUsuario}
                             id="outlined-basic" 
@@ -120,7 +118,7 @@ const Login = () => {
                             </Link>
                         </Stack>
                     </Grid>
-                </Item>
+                </div>
             </Grid>
         </Grid>
     )
