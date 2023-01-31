@@ -10,6 +10,7 @@ import { useState } from 'react'
 
 const  App = () => {
   const [isAllowed, setIsAllowed] = useState()
+  const [user,setUser] = useState()
 
   const functionToGetchildData = (validateRouteLogin) => {
     if (validateRouteLogin === ''){
@@ -24,10 +25,11 @@ const  App = () => {
   return (
       <BrowserRouter>
         <Routes>
-            <Route element={<ProtectedRoute isAllowed={isAllowed}/>}>
+            <Route element={<ProtectedRoute  isAllowed={isAllowed}/>}>
               <Route path='/home' element={ <Home />}> </Route>
+              <Route path='/landing' element={<Landing/>}> </Route>
             </Route>
-            <Route path='/landing' element={<Landing/>}> </Route>
+            
             <Route path='/users' element={<Users/>}> </Route>
             <Route path='/inicioSesion' element={<Login childToParentData={functionToGetchildData}/>}></Route>
             <Route path='/portafolio' element={<Portafolio />}></Route>

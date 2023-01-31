@@ -1,8 +1,6 @@
 import './login.css'
 import * as React from 'react'
 import { useState } from 'react'
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField'
@@ -17,7 +15,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import Alert from '@mui/material/Alert';
 import axios from 'axios'
-import { Link  } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const Login = ({childToParentData}) => {
     const [showPassword, setShowPassword] = useState(false);
@@ -29,6 +27,7 @@ const Login = ({childToParentData}) => {
 
     const onChangeUsuario = (event) => {setUsuario(event.target.value)}
     const onChangePassword = (event) => {setPassword(event.target.value)}
+    const navigate = useNavigate();
 
     const login = () => {
         if(usuario === '' || password === ''){
@@ -40,17 +39,13 @@ const Login = ({childToParentData}) => {
                 user: usuario,
                 password: password
             }).then((response) => {
-                
-                console.log('Esta es la respuesta del back',response.data)
                 setData(response.data)
                 childToParentData(data)
-                // setUsuario('')
-                // setPassword('')
+                navigate("/home");
             }).catch((err)=>{
                 setData('')
                 setAlertUsuario(true)
                 childToParentData(data)
-                console.log('entro al error')
             })
         }
     }
@@ -113,9 +108,7 @@ const Login = ({childToParentData}) => {
                     <Grid item pt={2} pb={4}>
                         <Stack pl={8} spacing={2} direction="row">
                             <Button variant="outlined">Crear usuario</Button>
-                            <Link to='/home'>
-                                <Button variant="contained" onClick={() =>{login()}}>Iniciar sesion</Button>
-                            </Link>
+                                <Button  variant="contained" onClick={() =>{login()}}>Iniciar sesion</Button>
                         </Stack>
                     </Grid>
                 </div>
