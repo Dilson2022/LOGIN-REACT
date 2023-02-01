@@ -51,13 +51,13 @@ const Portafolio = () => {
                         <Item2>
                             <Typography variant="h5" gutterBottom>
                                 <p>En estas redes me pueden encontrar</p>
-                                <a href="https://www.linkedin.com/feed/" target={"_blank"}>
+                                <a href="https://www.linkedin.com/in/dilson-masa-contreras-b068b4216/" target={"_blank"}>
                                     <LinkedInIcon />
                                 </a>
                                 <a href="https://www.linkedin.com/feed/" target={"_blank"}>
                                     <InstagramIcon />
                                 </a>
-                                <a href="https://www.linkedin.com/feed/" target={"_blank"}>
+                                <a href="https://web.facebook.com/dilson.masacontreras" target={"_blank"}>
                                     <FacebookIcon />
                                 </a>
                             </Typography>   
